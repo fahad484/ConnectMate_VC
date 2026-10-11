@@ -15,7 +15,7 @@ import { Snackbar } from '@mui/material';
 
 const defaultTheme = createTheme();
 
-export default function Authentication() {
+export default function Authentication({isRegister}) {
 
     
 
@@ -26,7 +26,7 @@ export default function Authentication() {
     const [message, setMessage] = React.useState();
 
     //login(0) or signup(1)
-    const [formState, setFormState] = React.useState(0);
+    const [formState, setFormState] = React.useState(isRegister? 1 : 0);
 
     //snackbar
     const [open, setOpen] = React.useState(false)

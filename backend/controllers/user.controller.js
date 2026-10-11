@@ -3,6 +3,8 @@ const { StatusCodes } = require("http-status-codes");
 const bcrypt= require("bcrypt");
 const crypto = require("crypto");
 
+const Meeting = require("../models/meeting.model.js");
+
 module.exports.login = async(req,res)=>{
     let {username ,password} = req.body;
     if(!username || !password){
@@ -65,3 +67,69 @@ module.exports.register =async(req,res) =>{
         res.status(500).json({message:`something went wrong :${error}`});
     }
 }
+module.exports.getUserHistory = async(req,res) =>{
+    const {token} = req.query;
+
+    try{
+        const user =await User.findOne({token:token});
+        const meetings = await Meeting.find({user_id:user.username});
+        res.json(meetings);
+    }catch(e){
+        res.json({message:`something went wrong ${e}`})
+    }
+} 
+
+// module.exports.addToHistory =async(req,res) =>{
+//     const {token,meeting_code} =req.body; 
+
+//     try{
+//         const user = await User.findOne({token:token});
+
+//         const newMeeting = new Meeting({
+//             user_id: user.username ,
+//             meetingCode : meeting_code
+//         })
+//         await newMeeting.save();
+
+//         res.status(StatusCodes.CREATED).json({message:"Added code to history"})
+//     }catch(e){
+//         res.json({message:`something went wrong ${e}`})
+//     }
+// }
+module.exports.addToHistory = async (req, res) => {
+    const { token, meeting_code } = req.body;
+
+    try {
+        if (!token || !meeting_code) {
+            return res.status(StatusCodes.BAD_REQUEST).json({
+                message: "Token and meeting code are required"
+            });
+        }
+
+        const user = await User.findOne({ token });
+
+        if (!user) {
+            return res.status(StatusCodes.UNAUTHORIZED).json({
+                message: "Invalid token or user not found"
+            });
+        }
+
+        const newMeeting = new Meeting({
+            user_id: user.username,
+            meetingCode: meeting_code
+        });
+
+        await newMeeting.save();
+
+        return res.status(StatusCodes.CREATED).json({
+            message: "Added code to history"
+        });
+
+    } catch (error) {
+        console.error("addToHistory error:", error);
+
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            message: "Something went wrong"
+        });
+    }
+};

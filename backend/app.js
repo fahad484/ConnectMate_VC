@@ -22,6 +22,7 @@ const io = connectToSocket(server);
 
 const PORT = process.env.PORT || 8080;
 const MONGO_URL=process.env.MONGODB_URL;
+
 //only selected link to access resource
 app.use(cors());
 // body parsing with limit of 40kb

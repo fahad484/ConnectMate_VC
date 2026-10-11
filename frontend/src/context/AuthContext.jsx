@@ -7,6 +7,7 @@ import server from "../environment";
 
 export const AuthContext = createContext({});
 
+
 const client = axios.create({
     baseURL: `${server}/api/v1/users`
 })
@@ -53,6 +54,8 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem("token", request.data.token);
                 router("/home")
             }
+            return request.data;
+            
         } catch (err) {
             throw err;
         }
@@ -66,8 +69,7 @@ export const AuthProvider = ({ children }) => {
                 }
             });
             return request.data
-        } catch
-         (err) {
+        } catch(err) {
             throw err;
         }
     }
