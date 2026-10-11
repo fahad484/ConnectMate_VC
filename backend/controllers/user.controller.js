@@ -116,7 +116,7 @@ module.exports.addToHistory = async (req, res) => {
 
         const newMeeting = new Meeting({
             user_id: user.username,
-            meetingCode: meeting_code
+            meetingcode: meeting_code
         });
 
         await newMeeting.save();
