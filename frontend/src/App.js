@@ -1,4 +1,4 @@
-import {BrowserRouter ,Routes ,Route,HashRouter} from 'react-router-dom';
+import {BrowserRouter ,Routes ,Route} from 'react-router-dom';
 import './App.css';
 import LandingPage from './pages/LandingPage.jsx';
 import Authentication from './pages/Authentication.jsx';
@@ -10,7 +10,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import JoinGuest from './pages/JoinGuest.jsx';
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
     <AuthProvider>
        <Routes>
         <Route path='/' element={<LandingPage/>}/>
@@ -25,7 +25,7 @@ function App() {
       </Routes>
     </AuthProvider>
      
-    </HashRouter>
+    </BrowserRouter>
 
   );
 }
