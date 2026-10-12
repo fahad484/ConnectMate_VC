@@ -1,9 +1,10 @@
+
 let IS_PROD = true;
 const server = IS_PROD ?
     // "https://apnacollegebackend.onrender.com" :
-    "https://connectmate-vc.onrender.com": 
+    `${process.env.REACT_APP_BACKEND_URL}`: 
 
-    "http://localhost:8080"
+    `${process.env.REACT_APP_LOCAL_HOST}`
 
 
 export default server;
