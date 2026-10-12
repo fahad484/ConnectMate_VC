@@ -13,6 +13,10 @@ const MeetingSchema = new Schema({
         default:Date.now,
         required:true,
     },
+     duration: {
+        type: Number,
+        default: 0
+    },
 });
 
 module.exports =  MeetingSchema ;

@@ -18,6 +18,7 @@ const History = () => {
   const [meetings, setMeetings] = useState([]);
 
   const routeTo = useNavigate();
+  const [selectedMeeting, setSelectedMeeting] = useState(null);
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -57,23 +58,23 @@ let formatDate = (dateString)=>{
         </IconButton>
 
         {/* e is element and idx is index */}
-      {meetings.length>0? meetings.map((e,idx) => {
+      {meetings.length>0? meetings.map((element,idx) => {
         return (
-          <>
-          
-            <Card key={idx} variant="outlined">
+          <React.Fragment key={element._id}>
+            <Card variant="outlined">
               <CardContent>
                 <Typography
                   gutterBottom
                   sx={{ color: "text.secondary", fontSize: 14 }}
                 >
-                  code: {e.meetingCode}
+                  code: {element.meetingcode}
+                  {/* { console.log(element.meetingcode)} */}
                 </Typography>
                 {/* <Typography variant="h5" component="div">
                   be{bull}nev{bull}o{bull}lent
                 </Typography> */}
                 <Typography sx={{ color: "text.secondary", mb: 1.5 }}>
-                  Date : {formatDate(e.date)}
+                  Date : {formatDate(element.date)}
                 </Typography>
                 {/* <Typography variant="body2">
                   well meaning and kindly.
@@ -82,10 +83,50 @@ let formatDate = (dateString)=>{
                 </Typography> */}
               </CardContent>
               <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button
+                  size="small"
+                  onClick={() => setSelectedMeeting(element)}
+                >
+                  Learn More
+                </Button>
               </CardActions>
             </Card>
-          </>
+            {/* {selectedMeeting && ( */}
+            {selectedMeeting?._id === element._id && (
+              <Card variant="outlined" sx={{ mt: 2, p: 2 }}>
+                <CardContent>
+                  <Typography variant="h6">Meeting Details</Typography>
+
+                  <Typography>Code: {selectedMeeting.meetingcode}</Typography>
+
+                  <Typography>
+                    Date: {formatDate(selectedMeeting.date)}
+                  </Typography>
+
+                  <Typography>
+                    Duration: {Math.floor((selectedMeeting.duration || 0) / 60)}{" "}
+                    minutes
+                  </Typography>
+
+                  {/* <Button onClick={() => setSelectedMeeting(null)}>
+                    Close
+                  </Button> */}
+                  <Button
+                    size="small"
+                    onClick={() =>
+                      setSelectedMeeting(
+                        selectedMeeting?._id === element._id ? null : element,
+                      )
+                    }
+                  >
+                    {selectedMeeting?._id === element._id
+                      ? "Show Less"
+                      : "Learn More"}
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </React.Fragment>
         );
       }):<p style={{textAlign:"center",fontSize:"1.5rem"}}>No History yet!</p>}
     </div>

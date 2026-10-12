@@ -7,6 +7,7 @@ import HomeComponent from './pages/HomeComponent.jsx';
 import History from './pages/History.jsx';
 
 import { AuthProvider } from './context/AuthContext.jsx';
+import JoinGuest from './pages/JoinGuest.jsx';
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
         <Route path='/auth' element={<Authentication/>}/>
         <Route path='/login' element={<Authentication/>}/>
         <Route path='/register' element={<Authentication  isRegister={true}/>}/>
+        <Route path='/guest' element={<JoinGuest/>}/>
         <Route path='/home' element={<HomeComponent/>}/>
         <Route path='/history' element={<History/>}/>
         <Route path='/:url' element={<VideoMeet/>}/>

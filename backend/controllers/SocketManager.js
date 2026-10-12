@@ -14,12 +14,34 @@ const connectToSocket =(server)=>{
             credentials :true
         }
     });
+    
 
     //check server connection
     io.on("connection",(socket)=>{
 
         //listen to client socket emit
         socket.on("join-call",(path)=>{
+            
+
+            if (typeof path !== "string" || !path.trim()) {
+              return;
+            }
+
+            path = path.trim();
+
+            // IMPORTANT: Register the socket in the actual Socket.IO room
+            socket.join(path);
+
+            socket.join(path);
+
+            console.log("JOIN EVENT RECEIVED");
+            console.log("Meeting code:", path);
+            console.log("Socket ID:", socket.id);
+            console.log("Socket rooms:", [...socket.rooms]);
+            console.log(
+                "Room members:",
+                [...(io.sockets.adapter.rooms.get(path) || [])]
+            );
 
             if(connections[path] === undefined){
                 connections[path] = [];

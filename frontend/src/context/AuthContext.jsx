@@ -74,17 +74,32 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    // const addToUserHistory = async (meetingCode) => {
+    //     try {
+    //         let request = await client.post("/add_to_activity", {
+    //             token: localStorage.getItem("token"),
+    //             meeting_code: meetingCode
+    //         });
+    //         return request.data
+    //     } catch (e) {
+    //         throw e;
+    //     }
+    // }
     const addToUserHistory = async (meetingCode) => {
-        try {
-            let request = await client.post("/add_to_activity", {
-                token: localStorage.getItem("token"),
-                meeting_code: meetingCode
-            });
-            return request
-        } catch (e) {
-            throw e;
-        }
+    try {
+        console.log("Meeting code passed:", meetingCode);
+
+        const request = await client.post("/add_to_activity", {
+            token: localStorage.getItem("token"),
+            meeting_code: meetingCode
+        });
+
+        return request.data;
+    } catch (e) {
+        console.error("History API error:", e.response?.data || e.message);
+        throw e;
     }
+};
 
 
     const data = {

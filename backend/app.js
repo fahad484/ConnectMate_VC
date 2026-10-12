@@ -11,6 +11,7 @@ const cors = require("cors");
 
 const dns = require("node:dns");
 const  userRoutes = require("./routes/users.routes.js");
+const  meetingRoutes = require("./routes/guest.routes.js");
 
 dns.setServers(["8.8.8.8"]);
 
@@ -23,14 +24,18 @@ const io = connectToSocket(server);
 const PORT = process.env.PORT || 8080;
 const MONGO_URL=process.env.MONGODB_URL;
 
+// Make Socket.IO accessible to Express controllers
+app.set("io", io);
 //only selected link to access resource
 app.use(cors());
+
 // body parsing with limit of 40kb
 app.use(express.json({ limit : "40kb" }));
 // urlencoded extended true with limit as 40kb 
 app.use(express.urlencoded({ limit : "40kb" , extended : true }));
 
 app.use("/api/v1/users",userRoutes);
+app.use("/api/meetings",meetingRoutes);
 
 main().then(()=> console.log("done!"))
  .catch((err)=> console.log(err));
