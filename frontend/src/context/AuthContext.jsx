@@ -42,6 +42,8 @@ export const AuthProvider = ({ children }) => {
 
     const handleLogin = async (username, password) => {
         try {
+            console.log("Base URL:", client.defaults.baseURL);
+            console.log("Login URL:", `${client.defaults.baseURL}/login`);
             let request = await client.post("/login", {
                 username: username,
                 password: password

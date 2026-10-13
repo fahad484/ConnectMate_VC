@@ -27,7 +27,21 @@ const MONGO_URL=process.env.MONGODB_URL;
 // Make Socket.IO accessible to Express controllers
 app.set("io", io);
 //only selected link to access resource
-app.use(cors());
+// app.use(cors());
+
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://connectmate-vc-1.onrender.com"
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
+}));
+
+
+
 
 // body parsing with limit of 40kb
 app.use(express.json({ limit : "40kb" }));

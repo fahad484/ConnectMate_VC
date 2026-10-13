@@ -680,19 +680,21 @@ const connectToSocketServer = () => {
                       );
                     })}
                 </div>
-
-                <div className={styles.chattingArea}>
-                  <TextField
-                    onChange={(e) => setMessage(e.target.value)}
-                    value={message}
-                    id="outlined-basic"
-                    label="Enter your chat"
-                    variant="outlined"
-                  />
-                </div>
-                <Button variant="contained" onClick={sendMessage}>
-                  send{" "}
-                </Button>
+                
+                  <div className={styles.chattingArea}>
+                    <TextField
+                      onChange={(e) => setMessage(e.target.value)}
+                      value={message}
+                      id="outlined-basic"
+                      label="Enter your chat"
+                      variant="outlined"
+                    />
+                    <Button variant="contained" onClick={sendMessage}>
+                    send{" "}
+                  </Button>
+                  </div>
+                  
+                
               </div>
             </div>
           ) : (

@@ -5,15 +5,31 @@ let connections = {};
 let timeOnline = {};
 
 const connectToSocket =(server)=>{
-    // Create Socket.IO server
-    const io = new Server(server,{
-        cors:{
-            origin:"*",
-            methods :["GET","POST"],
-            allowedHeaders : ['*'],
-            credentials :true
+
+    
+    const allowedOrigins = [
+        "http://localhost:3000",
+        "https://connectmate-vc-1.onrender.com"
+    ];
+
+    const io = new Server(server, {
+        cors: {
+            origin: allowedOrigins,
+            methods: ["GET", "POST"],
+            credentials: true
         }
     });
+
+    // Create Socket.IO server
+    // const io = new Server(server,{
+    //     cors:{
+    //         origin:"*",
+    //         methods :["GET","POST"],
+    //         allowedHeaders : ['*'],
+    //         credentials :true
+    //     }
+    // });
+    
     
 
     //check server connection

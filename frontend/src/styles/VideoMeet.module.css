@@ -45,6 +45,7 @@
     width: 30vw;
     bottom: 10vh;
     padding-inline: 20px;
+    z-index: 3;
 }
 .chatContainer{
     position: relative;
