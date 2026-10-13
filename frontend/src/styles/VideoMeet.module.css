@@ -47,14 +47,25 @@
     padding-inline: 20px;
     z-index: 3;
 }
-.chatContainer{
-    position: relative;
+.chatContainer {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    min-height: 0;
 }
 .chattingArea{
     position: absolute;
     bottom: 0;
     
+}
+.chattingDisplay {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-wrap: anywhere;
+    padding: 8px 4px;
+    margin-bottom: 4rem;
 }
 
 /* ```css
